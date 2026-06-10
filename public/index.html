@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ballpark — Free comparative rating for independent agents</title>
+  <meta name="description" content="Ballpark is a free comparative rater for independent auto-insurance agents. Enter a risk once, see estimated 6-month premiums ranked across the carriers you're appointed with — no per-seat rater fees." />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ballpark — Free comparative rating for independent agents" />
+  <meta property="og:description" content="Enter a risk once. See estimated premiums ranked across every carrier you're appointed with. Free." />
+  <meta property="og:url" content="https://ballpark.insure" />
+
+  <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;⚾&lt;/text&gt;&lt;/svg&gt;" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ───────────────────────── Nav ───────────────────────── -->
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top">
+        <span class="brand__mark" aria-hidden="true">⚾</span>
+        <span class="brand__name">Ballpark</span>
+      </a>
+      <nav class="nav__links">
+        <a href="#how">How it works</a>
+        <a href="#why">Why free</a>
+        <a href="#register" class="btn btn--ghost">Get early access</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ───────────────────────── Hero ───────────────────────── -->
+    <section class="hero">
+      <div class="wrap hero__inner">
+        <p class="eyebrow">Coming soon · for independent agencies</p>
+        <h1 class="hero__title">Comparative rating,<br /><span class="grad">for free.</span></h1>
+        <p class="hero__sub">
+          Enter a personal-auto risk once and see estimated 6-month premiums ranked across
+          every carrier you're appointed with — in seconds. We model premiums from public rate
+          filings and our own data to land within about <strong>5%</strong> of a real rate, so you
+          can shop a risk without paying per-seat rater fees.
+        </p>
+        <div class="hero__cta">
+          <a href="#register" class="btn btn--primary">Register your interest</a>
+          <a href="#how" class="btn btn--text">See how it works →</a>
+        </div>
+        <p class="hero__note">No card, no contract. We'll email you when your state goes live.</p>
+      </div>
+
+      <!-- Mock results card -->
+      <div class="wrap">
+        <div class="ratecard" role="img" aria-label="Example of ranked carrier estimates">
+          <div class="ratecard__head">
+            <span>Estimated 6-mo premiums · 89101 · 1 driver · 1 vehicle</span>
+            <span class="pill">Demo</span>
+          </div>
+          <ul class="ratecard__rows">
+            <li class="rrow"><span class="rrow__rank">1</span><span class="rrow__name">Acme Auto</span><span class="rrow__band">±5%</span><span class="rrow__price">$612</span></li>
+            <li class="rrow rrow--just"><span class="rrow__rank">2</span><span class="rrow__name">Just Insure <em>· telematics</em></span><span class="rrow__band">±5%</span><span class="rrow__price">$648</span></li>
+            <li class="rrow"><span class="rrow__rank">3</span><span class="rrow__name">Summit Mutual</span><span class="rrow__band">±5%</span><span class="rrow__price">$701</span></li>
+            <li class="rrow"><span class="rrow__rank">4</span><span class="rrow__name">Cornerstone</span><span class="rrow__band">±5%</span><span class="rrow__price">$844</span></li>
+          </ul>
+          <p class="ratecard__foot">Estimated indication — not a carrier quote. Verify before binding.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── Three-up ───────────────────────── -->
+    <section class="features wrap" id="why">
+      <article class="feature">
+        <div class="feature__icon">∞</div>
+        <h3>Free forever</h3>
+        <p>No per-seat fees, no annual contract. EZLynx and TurboRater run $100–300 a month per producer. Ballpark is $0.</p>
+      </article>
+      <article class="feature">
+        <div class="feature__icon">↻</div>
+        <h3>Single entry, every carrier</h3>
+        <p>Type the risk once. We fan it out to all the carriers your agency is appointed with and rank what comes back, cheapest first.</p>
+      </article>
+      <article class="feature">
+        <div class="feature__icon">±</div>
+        <h3>Estimates within ~5%</h3>
+        <p>Honest indications with a confidence band — not false-precision quotes. Built to get you to the right carrier fast, then verify.</p>
+      </article>
+    </section>
+
+    <!-- ───────────────────────── Comparison ───────────────────────── -->
+    <section class="compare">
+      <div class="wrap compare__inner">
+        <h2 class="section__title">What you'd pay elsewhere</h2>
+        <div class="compare__grid">
+          <div class="compare__col compare__col--them">
+            <h4>EZLynx · TurboRater · PL Rating</h4>
+            <p class="compare__price">$100–300<span>/mo per seat</span></p>
+            <ul>
+              <li>Annual contracts</li>
+              <li>Per-producer licensing</li>
+              <li>Overkill for a quick shop</li>
+            </ul>
+          </div>
+          <div class="compare__col compare__col--us">
+            <h4><span class="brand__mark" aria-hidden="true">⚾</span> Ballpark</h4>
+            <p class="compare__price compare__price--free">$0<span>/forever</span></p>
+            <ul>
+              <li>No contract, no card</li>
+              <li>Every appointed carrier in one view</li>
+              <li>Built for fast, everyday shopping</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── How it works ───────────────────────── -->
+    <section class="how wrap" id="how">
+      <h2 class="section__title">How it works</h2>
+      <ol class="steps">
+        <li class="step">
+          <span class="step__num">1</span>
+          <h3>Enter the risk once</h3>
+          <p>ZIP, a driver or two, a vehicle, and a coverage bundle. Aggressive defaults — a minimum quote needs only the essentials.</p>
+        </li>
+        <li class="step">
+          <span class="step__num">2</span>
+          <h3>We rate in parallel</h3>
+          <p>Your risk fans out to the carriers you're appointed with. Results stream in as each one responds — a slow carrier never holds up the rest.</p>
+        </li>
+        <li class="step">
+          <span class="step__num">3</span>
+          <h3>Compare and verify</h3>
+          <p>Ranked estimates with confidence bands, plus which carriers declined and why. Pick the winner, then confirm the real rate before you bind.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ───────────────────────── Honesty strip ───────────────────────── -->
+    <section class="honest">
+      <div class="wrap honest__inner">
+        <p>
+          <strong>Straight talk:</strong> Ballpark gives you <em>estimated indications</em> from public
+          filings and modeled data — not bindable carrier rates. It's the fastest way to know where a
+          risk lands before you do the real work. Always verify with the carrier before binding.
+        </p>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── Register interest ───────────────────────── -->
+    <section class="register" id="register">
+      <div class="wrap register__inner">
+        <div class="register__copy">
+          <h2 class="section__title">Be first in your state</h2>
+          <p>
+            We're rolling out state by state — Nevada first, then Arizona, California, and on from there.
+            Tell us about your agency and we'll let you know the moment Ballpark is live where you write
+            business.
+          </p>
+          <ul class="register__perks">
+            <li>Early access before public launch</li>
+            <li>Free forever — we mean it</li>
+            <li>No spam, just a heads-up when your state opens</li>
+          </ul>
+        </div>
+
+        <form class="form" id="interest-form" novalidate>
+          <div class="field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" autocomplete="name" placeholder="Jane Agent" required />
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" autocomplete="email" placeholder="jane@youragency.com" required />
+          </div>
+          <div class="field">
+            <label for="agency">Agency name <span class="opt">(optional)</span></label>
+            <input type="text" id="agency" name="agency" autocomplete="organization" placeholder="Your Agency, LLC" />
+          </div>
+          <div class="field">
+            <label for="state">State you write in</label>
+            <select id="state" name="state" required>
+              <option value="" disabled selected>Choose a state…</option>
+              <option>Nevada</option>
+              <option>Arizona</option>
+              <option>California</option>
+              <option>Indiana</option>
+              <option>Georgia</option>
+              <option>South Carolina</option>
+              <option>Texas</option>
+              <option>Missouri</option>
+              <option value="Other">Other / multiple</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn--primary btn--block" id="submit-btn">Notify me at launch</button>
+          <p class="form__msg" id="form-msg" role="status" aria-live="polite"></p>
+          <p class="form__fine">By registering you agree we may email you about Ballpark. Unsubscribe anytime.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ───────────────────────── Footer ───────────────────────── -->
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div class="footer__brand">
+        <span class="brand__mark" aria-hidden="true">⚾</span>
+        <span class="brand__name">Ballpark</span>
+        <span class="footer__dom">ballpark.insure</span>
+      </div>
+      <p class="footer__disc">
+        Ballpark provides estimated insurance premium indications for licensed agents. Estimates are not
+        carrier quotes and are not bindable. Personal auto only at launch. © <span id="year">2026</span> Ballpark.
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
