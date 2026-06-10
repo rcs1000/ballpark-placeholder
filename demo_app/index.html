@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Ballpark Demo — RC1 quote console</title>
+  <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;⚾&lt;/text&gt;&lt;/svg&gt;" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/demo/static/demo.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar__inner">
+      <a class="brand" href="/"><span aria-hidden="true">⚾</span> Ballpark <span class="brand__tag">demo</span></a>
+      <span class="topbar__note">RC1 quote console — fans one risk out to your engines (server-side)</span>
+    </div>
+  </header>
+
+  <main class="wrap layout">
+    <!-- ─────────────── Left: inputs ─────────────── -->
+    <section class="panel">
+      <h2 class="panel__title">Risk</h2>
+      <p class="panel__hint">Same inputs as a Just Insure quick quote. Sent to every enabled engine as one RC1 <code>QuoteRequest</code>.</p>
+
+      <form id="quote-form" novalidate>
+        <fieldset>
+          <legend>Garaging</legend>
+          <div class="grid grid-2">
+            <label>ZIP<input name="zip" inputmode="numeric" maxlength="5" placeholder="89101" required /></label>
+            <label>State
+              <select name="state" required>
+                <option value="NV" selected>NV</option><option>AZ</option><option>CA</option>
+                <option>AL</option><option>AK</option><option>AR</option><option>CO</option><option>CT</option>
+                <option>DE</option><option>DC</option><option>FL</option><option>GA</option><option>HI</option>
+                <option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+                <option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option>
+                <option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option>
+                <option>NE</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+                <option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option>
+                <option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option>
+                <option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option>
+                <option>WV</option><option>WI</option><option>WY</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Vehicle</legend>
+          <div class="grid grid-3">
+            <label>Year<input name="year" inputmode="numeric" maxlength="4" placeholder="2021" /></label>
+            <label>Make<input name="make" placeholder="Honda" /></label>
+            <label>Model<input name="model" placeholder="CR-V" /></label>
+          </div>
+          <label>VIN <span class="opt">(optional — preferred when known)</span><input name="vin" maxlength="17" placeholder="19XFC2E2XJE000123" /></label>
+          <div class="grid grid-3">
+            <label>Ownership
+              <select name="ownership"><option value="owned">Owned</option><option value="financed">Financed</option><option value="leased">Leased</option></select>
+            </label>
+            <label>Primary use
+              <select name="use"><option value="commute">Commute</option><option value="pleasure">Pleasure</option><option value="business">Business</option><option value="farm">Farm</option><option value="rideshare">Rideshare</option></select>
+            </label>
+            <label>Monthly mileage<input name="monthly_mileage" inputmode="numeric" placeholder="1000" /></label>
+          </div>
+          <label class="annual">Annual mileage <span class="opt">(optional — used if monthly is blank)</span><input name="annual_mileage" inputmode="numeric" placeholder="12000" /></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Driver</legend>
+          <div class="grid grid-3">
+            <label>Date of birth<input type="date" name="dob" /></label>
+            <label>Age <span class="opt">(if no DOB)</span><input name="age" inputmode="numeric" maxlength="3" placeholder="35" /></label>
+            <label>Years licensed<input name="years_licensed" inputmode="numeric" placeholder="17" /></label>
+          </div>
+          <div class="grid grid-3">
+            <label>Gender
+              <select name="gender"><option value="female">Female</option><option value="male">Male</option><option value="nonbinary">Nonbinary</option><option value="unknown">Unknown</option></select>
+            </label>
+            <label>Marital status
+              <select name="marital"><option value="married">Married</option><option value="single">Single</option><option value="divorced">Divorced</option><option value="widowed">Widowed</option><option value="separated">Separated</option><option value="partner">Partner</option><option value="unknown">Unknown</option></select>
+            </label>
+            <label>Credit
+              <select name="credit_band"><option value="excellent">Excellent</option><option value="good" selected>Good</option><option value="average">Average</option><option value="fair">Fair</option><option value="poor">Poor</option><option value="unknown">Unknown</option></select>
+            </label>
+          </div>
+          <div class="grid grid-4">
+            <label>Accidents<input name="accidents" inputmode="numeric" value="0" /></label>
+            <label>Violations<input name="violations" inputmode="numeric" value="0" /></label>
+            <label>DUIs<input name="duis" inputmode="numeric" value="0" /></label>
+            <label>Claims<input name="claims" inputmode="numeric" value="0" /></label>
+          </div>
+          <label class="check"><input type="checkbox" name="sr22" /> Requires SR-22</label>
+        </fieldset>
+
+        <details class="more">
+          <summary>More detail <span class="opt">(used by other carriers — Just ignores)</span></summary>
+          <div class="grid grid-3">
+            <label>Credit score <span class="opt">(300–850)</span><input name="credit_score" inputmode="numeric" placeholder="750" /></label>
+            <label class="check"><input type="checkbox" name="prior_insurance" checked /> Currently insured</label>
+            <label class="check"><input type="checkbox" name="home_owner" /> Homeowner</label>
+          </div>
+        </details>
+
+        <fieldset>
+          <legend>Coverage tiers <span class="opt">(none checked → engine's native set)</span></legend>
+          <div class="tiers">
+            <label class="check"><input type="checkbox" name="tier" value="state_minimum" /> State minimum</label>
+            <label class="check"><input type="checkbox" name="tier" value="standard" /> Standard</label>
+            <label class="check"><input type="checkbox" name="tier" value="full" /> Full</label>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn--primary btn--block" id="run">Get estimates</button>
+        <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- ─────────────── Right: endpoints + results ─────────────── -->
+    <section class="panel">
+      <h2 class="panel__title">Engines <button class="btn btn--sm" id="add-engine" type="button">+ Add</button></h2>
+      <p class="panel__hint">
+        Edit the engines this risk is sent to. Saved in your browser; the calls are made
+        server-side per the
+        <a href="https://github.com/rcs1000/ballpark-placeholder" target="_blank" rel="noopener">RC1 contract</a>
+        (<code>POST {url}/rate</code>).
+      </p>
+      <div id="engines"></div>
+
+      <h2 class="panel__title results-head">Results</h2>
+      <div id="results" class="results-empty">Fill in a risk and hit <strong>Get estimates</strong>.</div>
+
+      <details class="reqbox" id="reqbox" hidden>
+        <summary>RC1 request sent</summary>
+        <pre id="reqjson"></pre>
+      </details>
+    </section>
+  </main>
+
+  <script src="/demo/static/demo.js"></script>
+</body>
+</html>

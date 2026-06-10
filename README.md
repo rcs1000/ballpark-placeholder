@@ -6,14 +6,17 @@ sign-ups.
 
 ## Files
 
-| File | Purpose |
+| Path | Purpose |
 |------|---------|
-| `index.html` | The page — hero pitch, value props, price comparison, how-it-works, interest form |
-| `styles.css` | All styling (dark fintech look, fully responsive, no framework) |
-| `script.js` | Form validation + submission |
+| `public/index.html` | Marketing page — hero pitch, value props, price comparison, interest form |
+| `public/styles.css` | All styling for the marketing site (dark fintech look, responsive) |
+| `public/script.js` | Interest-form validation + submission |
+| `demo_app/` | Flask **/demo** quote console (RC1 orchestrator) — see below |
+| `setup.sh` | Deploy the static site + Cloudflare Tunnel in an LXC |
+| `setup-demo.sh` | Deploy the `/demo` Flask service + nginx proxy in the LXC |
 
-No build step, no dependencies. The only external request is the Google Fonts stylesheet
-(Inter); everything else is self-contained, including the ⚾ favicon (inline SVG).
+The marketing site has no build step or dependencies (only the Google Fonts stylesheet);
+the `/demo` console is a small Flask app (Flask + requests + gunicorn).
 
 ## Preview locally
 
@@ -98,6 +101,53 @@ cd ballpark-placeholder && git pull && cp -r public/. /var/www/html/
 > **Alternative:** it's just static files, so Cloudflare Pages (drag-and-drop `public/`)
 > works with zero infra — but the LXC keeps everything on your homelab, which is the
 > spec's intent.
+
+## The `/demo` quote console (RC1 orchestrator)
+
+A super-simple working rater at **`/demo`**. It takes the same inputs as a Just Insure
+quick quote, builds one [RC1 `QuoteRequest`](../rc1-quote-package.md) (v1.0), and fans it
+out — **server-side** — to a list of engines you edit right on the page (seeded with Just
+Insure; add Progressive / Go Auto by filling in their URLs). Results come back bucketed
+*priced / declined / unavailable* and ranked by `premium.monthly`, with a tier×engine
+comparison grid and the raw RC1 JSON for each engine.
+
+**Why server-side:** the browser POSTs the risk + engine list to a small Flask proxy
+(`/demo/api/rate`), which makes the actual `POST {base}/rate` calls in parallel. This
+avoids cross-origin (CORS) problems and keeps any `X-Rater-Key` secrets off the client. A
+basic SSRF guard blocks private/loopback targets since `/demo` is publicly reachable.
+
+```
+demo_app/
+├── app.py              Flask: serves /demo + /demo/api/rate + /demo/api/meta (fan-out)
+├── index.html          the console page
+├── static/{demo.css,demo.js}
+└── requirements.txt    Flask · requests · gunicorn
+```
+
+### Run locally
+
+```bash
+cd demo_app
+python3 -m venv venv && venv/bin/pip install -r requirements.txt
+venv/bin/python app.py        # http://127.0.0.1:5000/demo
+```
+
+### Deploy on the LXC
+
+After `setup.sh`, run `setup-demo.sh` once. It installs the app under `/opt/ballpark-demo`,
+runs it via gunicorn as the `ballpark-demo` systemd service on `127.0.0.1:5000`, and
+rewrites the nginx site to serve the static pages **and** reverse-proxy `/demo` to it. The
+Cloudflare Tunnel is untouched (still → nginx:80).
+
+```bash
+cd ~/ballpark-placeholder && git pull && bash setup-demo.sh
+# verify:  systemctl status ballpark-demo --no-pager ; curl -sI http://localhost/demo
+```
+
+> **Heads-up — engine endpoints:** the demo calls each engine's RC1 `POST /rate`. As of now
+> `https://quote.sfinsure.tech` returns **404** on `/rate`, `/meta`, and `/health`, so the
+> RC1 adapter described in `rc1-quote-package.md` §5.1 isn't deployed there yet — every
+> quote will show as *unavailable* until it is. The console is ready the moment it's live.
 
 ## Notes
 
