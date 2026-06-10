@@ -74,22 +74,26 @@ network/DHCP and start it. (cloudflared only needs outbound 443, so no port forw
 
 ### 3. Run setup (inside the LXC)
 
-Copy this folder onto the container and run the script with your token:
+The LXC only needs **outbound** internet — it pulls everything (site + this installer)
+from GitHub, so it doesn't need to be reachable from your laptop. As root:
 
 ```bash
-# from your dev box:
-scp -r placeholder_site root@<lxc-ip>:/root/
-
-# inside the LXC, as root:
-cd /root/placeholder_site
+apt-get update && apt-get install -y git
+git clone https://github.com/rcs1000/ballpark-placeholder.git
+cd ballpark-placeholder
 TUNNEL_TOKEN='eyJ...paste...' bash setup.sh
 ```
 
 Then visit **https://ballpark.insure**. Check status anytime with
 `systemctl status cloudflared nginx`.
 
-**Update the site later:** re-copy `public/` and refresh the web root —
-`cp -r public/. /var/www/html/` (no service restart needed).
+**Update the site later:** edit + push from your dev box, then on the LXC:
+
+```bash
+cd ballpark-placeholder && git pull && cp -r public/. /var/www/html/
+```
+
+(no service restart needed).
 
 > **Alternative:** it's just static files, so Cloudflare Pages (drag-and-drop `public/`)
 > works with zero infra — but the LXC keeps everything on your homelab, which is the
